@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camada de Transporte - Modelo OSI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0c0c1e 0%, #1a1a3e 50%, #2a2a5e 100%);
+            color: #e0e0ff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            background: linear-gradient(45deg, #00bfff, #1e90ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        nav button {
+            background: rgba(30,144,255,0.2);
+            border: 2px solid #1e90ff;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: #1e90ff;
+            transform: translateY(-2px);
+        }
+
+        .slide {
+            display: none;
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            animation: fade 0.5s ease;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .script {
+            margin-top: 20px;
+            padding: 20px;
+            border-left: 4px solid #1e90ff;
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .script::before {
+            content: 'Explicação';
+            display: block;
+            margin-bottom: 10px;
+            color: #00bfff;
+            font-weight: bold;
+        }
+
+        /* fundo animado */
+        .network-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #00bfff;
+            border-radius: 50%;
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0%,100% {transform: translateY(0);}
+            50% {transform: translateY(-20px);}
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="network-bg" id="network"></div>
+
+<div class="container">
+
+<header>
+    <h1>Camada de Transporte</h1>
+    <p>Modelo OSI</p>
+</header>
+
+<nav>
+    <button onclick="showSlide(0)" class="active">Função</button>
+    <button onclick="showSlide(1)">PDU</button>
+    <button onclick="showSlide(2)">TCP</button>
+    <button onclick="showSlide(3)">UDP</button>
+    <button onclick="showSlide(4)">Comparação</button>
+    <button onclick="showSlide(5)">Exemplos</button>
+    <button onclick="showSlide(6)">Analogia</button>
+    <button onclick="showSlide(7)">Conclusão</button>
+</nav>
+
+<section>
+
+<div class="slide active">
+    <h2>Função da Camada de Transporte</h2>
+    <div class="script">
+        A camada de transporte é responsável por garantir a comunicação entre dispositivos. Ela organiza o envio dos dados, evita sobrecarga na rede e verifica se as informações chegam corretamente.
+    </div>
+</div>
+
+<div class="slide">
+    <h2>PDU</h2>
+    <div class="script">
+        Os dados são divididos em partes menores. No TCP são chamados de segmentos, organizados. No UDP são datagramas, enviados de forma mais simples.
+    </div>
+</div>
+
+<div class="slide">
+    <h2>TCP</h2>
+    <div class="script">
+        O TCP estabelece conexão antes de enviar dados. Garante ordem e reenvia informações perdidas. É confiável, mas mais lento.
+    </div>
+</div>
+
+<div class="slide">
+    <h2>UDP</h2>
+    <div class="script">
+        O UDP envia dados sem conexão e sem confirmação. É mais rápido, porém pode haver perda de informações.
+    </div>
+</div>
+
+<div class="slide">
+    <h2>TCP vs UDP</h2>
+    <div class="script">
+        TCP prioriza segurança e organização. UDP prioriza velocidade. A escolha depende da necessidade.
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Exemplos</h2>
+    <div class="script">
+        TCP é usado em sites e e-mails. UDP é usado em jogos online e streaming.
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Analogia</h2>
+    <div class="script">
+        TCP é como uma entrega com confirmação. UDP é como uma mensagem rápida sem garantia.
+    </div>
+</div>
+
+<div class="slide">
+    <h2>Conclusão</h2>
+    <div class="script">
+        A camada de transporte garante eficiência na comunicação. TCP oferece segurança, UDP oferece velocidade.
+    </div>
+</div>
+
+</section>
+
+</div>
+
+<script>
+function showSlide(index) {
+    const slides = document.querySelectorAll('.slide');
+    const buttons = document.querySelectorAll('nav button');
+
+    slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+    });
+
+    buttons.forEach((b, i) => {
+        b.classList.toggle('active', i === index);
+    });
+}
+
+function createNetwork() {
+    const bg = document.getElementById('network');
+    for (let i = 0; i < 25; i++) {
+        const node = document.createElement('div');
+        node.className = 'node';
+        node.style.left = Math.random() * 100 + '%';
+        node.style.top = Math.random() * 100 + '%';
+        bg.appendChild(node);
+    }
+}
+
+createNetwork();
+</script>
+
+</body>
+</html>
